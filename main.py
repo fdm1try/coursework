@@ -66,12 +66,13 @@ if __name__ == '__main__':
         if not user_input.lower().startswith('д'):
             gdrive = False
             config.set('google_token', None)
-        google_token = oauth.receive_token_google()
-        if not google_token:
-            gdrive = False
-            config.set('google_token', None)
         else:
-            config.set('google_token', google_token.to_dict())
+            google_token = oauth.receive_token_google()
+            if not google_token:
+                gdrive = False
+                config.set('google_token', None)
+            else:
+                config.set('google_token', google_token.to_dict())
     if not yadisk and not gdrive:
         print("Место хранения фотографий не задано, программа завершена")
         sys.exit()
